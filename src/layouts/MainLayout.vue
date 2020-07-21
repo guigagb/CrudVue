@@ -15,7 +15,7 @@
           CRUD-Vue
         </q-toolbar-title>
 
-        <div>Seja Bem-Vindo</div>
+        <div v-if="$store.state.usuarioLogado">Seja Bem-Vindo {{$store.state.usuarioLogado.nome}}</div>
       </q-toolbar>
     </q-header>
 

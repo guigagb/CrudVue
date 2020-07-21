@@ -51,7 +51,7 @@
           >
         </div>
         <div class="form-group rodape">
-          <span>Teste CRUD</span>
+          <a href=""><span>Cadastrar-se</span></a>
         </div>
       </q-form>
     </div>
@@ -61,6 +61,7 @@
 <script>
 // import inputNumber from "../../components/inputNumber";
 import * as util from "../../js/util";
+import {mapActions} from 'vuex'
 
 export default {
   name: "login",
@@ -76,25 +77,39 @@ export default {
   },
   methods: {
     login() {
-      this.$refs.formLogin.validate().then(success => {
+      this.$refs.formLogin.validate()
+      .then(success => {
         if (success) {
+          console.log('iiii');
           this.btnLoginDisable = true;
           this.$refs.btnLogin.innerHTML =
             '<i class="fa fa-spinner fa-spin"></i>';
-		}
-		else{
-			this.$store.state.alert('oi');
-		}
-      });
+          return this.$store.dispatch('actLogar',{usuario: this.usuario, senha: this.password})
+        }else{
+          return Promise.reject('Campos devem ser preenchidos!');
+        }
+      })
+      .then((r)=>{
+        setTimeout(() => {
+          this.$router.push({path: '/'});
+        }, 200);
+      })
+      .catch((r)=>{
+        this.$store.state.alert(r,'negative')
+      })
+      .finally(()=>{
+          this.btnLoginDisable = false;
+      })
     }
   },
   mounted() {
     util.tabToEnter("#formLogin");
+    window.store = this.$store;
   }
 };
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
 #pageLogin {
   background: #56ccf2; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -152,6 +167,16 @@ export default {
 .form-group {
   margin-bottom: 10px;
   color: #3d3d3d;
+}
+
+.form-group a{
+  color: #1c1c1c;
+  text-transform: none ;
+  text-decoration: none;
+}
+
+.form-group a:hover{
+  text-decoration: underline;
 }
 
 input {
