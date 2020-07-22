@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="fHh Lpr lFf">
+    <q-layout view="hHh Lpr lFf">
         <q-header elevated>
             <q-toolbar>
                 <q-btn flat dense round icon="menu" aria-label="Menu" @click="mini = !mini" />
@@ -14,7 +14,7 @@
             </q-toolbar>
         </q-header>
     
-        <q-drawer :mini="mini" show-if-above bordered content-class="bg-grey-1">
+        <q-drawer :mini="mini" :width=200 show-if-above bordered content-class="bg-grey-1">
             <q-list>
                 <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
                 <q-item clickable tag="a" @click="logout">
@@ -66,6 +66,7 @@ export default {
     methods: {
         ...mapMutations(['setUsuario']),
         logout() {
+            localStorage.setItem('usuarioLogado',undefined)
             this.setUsuario(undefined);
             this.$router.push('/entrar');
         }

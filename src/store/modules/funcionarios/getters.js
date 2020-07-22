@@ -1,3 +1,3 @@
-export const getVariable = (state) =>{
-    return state.variable;
+export const getFuncionarios = (state) => {
+    return state.funcionarios;
 }

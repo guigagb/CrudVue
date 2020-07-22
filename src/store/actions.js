@@ -7,10 +7,11 @@ export const actLogar = ({ rootState, commit }, { usuario, senha }) => {
 
     rootState.usuarios.map(ln => {
       if ((ln.usuario = usuario && ln.senha == senha)) {
+        localStorage.setItem('usuarioLogado', ln);
         commit("setUsuario", ln);
         return res(true);
       } else return rej("Usuário ou senha não conferem!");
     });
   });
-  
+
 };

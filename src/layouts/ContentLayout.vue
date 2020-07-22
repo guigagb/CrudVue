@@ -8,7 +8,7 @@
             </div>
         </div>
         <q-card class="q-ml-sm q-mr-sm">
-            <q-card-section class="card-main">
+            <q-card-section class="card-main q-pa-none">
                 <router-view></router-view>
             </q-card-section>
         </q-card>
