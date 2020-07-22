@@ -50,23 +50,24 @@ export function tabToEnter(element) {
   var focusable = [
     ...el.querySelectorAll(
       "input:not([disabled]):not([readonly])," +
-        "select:not([disabled]):not([readonly])," +
-        "button:not([disabled]):not([readonly]):not(.q-icon):not([z-index='-1'])," +
-        "textarea:not([disabled]):not([readonly])"
+      "select:not([disabled]):not([readonly])," +
+      "button:not([disabled]):not([readonly]):not(.q-icon):not([z-index='-1'])," +
+      "textarea:not([disabled]):not([readonly])"
     )
   ];
 
   for (let i in focusable) {
-    focusable[i].addEventListener("keydown", function(e) {
+    focusable[i].addEventListener("keydown", function (e) {
       var next;
       if (e.keyCode === 13) {
         next = focusable[focusable.indexOf(this) + 1];
         if (next) {
           if (next.tagName == "BUTTON" || next.tagName == "SELECT")
             next.focus();
-          else next.select();
+          else {
+            next.select();
+          }
         }
-        e.preventDefault();
         return false;
       }
     });
@@ -124,12 +125,12 @@ export function show(arg) {
     title: arg.title,
     width: 600,
     height: 190,
-    onClose: function() {
+    onClose: function () {
       arg.onClose && arg.onClose();
       modal.destroy();
       document.querySelector("#" + id).innerHTML = "";
     },
-    onOpen: function() {
+    onOpen: function () {
       modal.btnFocus("OK");
     },
     buttons: {
@@ -261,8 +262,8 @@ export function confirma(Argument) {
       height: 190,
       theme: "xModal-bublue",
       title: arg.title,
-      onOpen: function() {},
-      onClose: function() {
+      onOpen: function () { },
+      onClose: function () {
         if (arg.close) arg.close();
         //console.log(result);
         rej();
@@ -272,7 +273,7 @@ export function confirma(Argument) {
         Cancelar: {
           html: "Cancelar",
           class: "btnModal",
-          click: function() {
+          click: function () {
             arg.cancel && arg.cancel();
             modalConfirma.close();
           }
@@ -280,7 +281,7 @@ export function confirma(Argument) {
         OK: {
           html: "Ok",
           class: "btnModal",
-          click: function() {
+          click: function () {
             arg.call && arg.call();
             res();
             modalConfirma.close();
@@ -329,7 +330,7 @@ export function formatarValorBr(vlr, qtdDecimais = 2) {
 export function hideKeyboard(element) {
   element.setAttribute("readonly", "readonly"); // Force keyboard to hide on input field.
   //element.setAttribute("disabled", "true"); // Force keyboard to hide on textarea field.
-  setTimeout(function() {
+  setTimeout(function () {
     //element.blur(); //actually close the keyboard
     // Remove readonly attribute after keyboard is hidden.
     element.removeAttribute("readonly");

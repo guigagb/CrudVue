@@ -1,80 +1,96 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
-
-        <q-toolbar-title>
-          CRUD-Vue
-        </q-toolbar-title>
-
-        <div v-if="$store.state.usuarioLogado">Seja Bem-Vindo {{$store.state.usuarioLogado.nome}}</div>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label header class="text-grey-8">
-          Menu Principal
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+    <q-layout view="fHh Lpr lFf">
+        <q-header elevated>
+            <q-toolbar>
+                <q-btn flat dense round icon="menu" aria-label="Menu" @click="mini = !mini" />
+    
+                <q-toolbar-title>
+                    CRUD-Vue
+                </q-toolbar-title>
+    
+                <div v-if="$store.state.usuarioLogado">
+                    Seja Bem-Vindo {{ $store.state.usuarioLogado.nome }}
+                </div>
+            </q-toolbar>
+        </q-header>
+    
+        <q-drawer :mini="mini" show-if-above bordered content-class="bg-grey-1">
+            <q-list>
+                <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+                <q-item clickable tag="a" @click="logout">
+                    <q-item-section avatar>
+                        <q-icon :name="mdiLogout" />
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>Sair</q-item-label>
+                    </q-item-section>
+                </q-item>
+            </q-list>
+        </q-drawer>
+        <div class="page-header">
+        </div>
+        <q-page-container>
+            <content-layout></content-layout>
+        </q-page-container>
+    </q-layout>
 </template>
 
 <script>
 import EssentialLink from "components/EssentialLink.vue";
-import store from '../store';
-import { mdiAccountHardHat } from "@quasar/extras/mdi-v5";
+import ContentLayout from './ContentLayout'
+import store from "../store";
+import {
+    mdiAccountHardHat,
+    mdiLogout
+} from "@quasar/extras/mdi-v5";
+import { mapMutations } from 'vuex';
 
-const linksData = [
-  {
+const menu = [{
     title: "Funcionários",
     icon: mdiAccountHardHat,
-    link: "https://quasar.dev"
-  }
-];
+    link: "/funcionarios"
+}];
 
 export default {
-  name: "MainLayout",
-  components: { EssentialLink },
-  data() {
-    return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
-    };
-  },
-  computed:{
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm=>{
-		if(vm.$store.state.usuarioLogado == undefined){
-			console.log(vm.$router);
-			vm.$router.push('/entrar')
-			return false;
-		}
-    })
-  }
+    name: "MainLayout",
+    components: {
+        EssentialLink, ContentLayout
+    },
+    data() {
+        return {
+            mini: false,
+            essentialLinks: menu,
+            mdiLogout
+        };
+    },
+    methods: {
+        ...mapMutations(['setUsuario']),
+        logout() {
+            this.setUsuario(undefined);
+            this.$router.push('/entrar');
+        }
+    },
+    computed: {},
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            if (vm.$store.state.usuarioLogado == undefined) {
+                vm.$router.push("entrar");
+                return false;
+            }
+        });
+    }
 };
 </script>
+
+<style lang="stylus">
+.q-page-container{
+    background: #f5f5f5
+}
+.page-header-left .page-name{ 
+    font-size: 22px
+}
+.card-main{
+    // height: calc(100vh - 130px);
+    // overflow-y: auto
+}
+</style>
