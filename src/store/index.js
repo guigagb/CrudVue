@@ -1,14 +1,14 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import funcionarios from "./modules/funcionarios";
+import funcionarios from './modules/funcionarios'
 
-import { default as state } from "./state";
-import * as getters from "./getters";
-import * as mutations from "./mutations";
-import * as actions from "./actions";
+import { default as state } from './state'
+import * as getters from './getters'
+import * as mutations from './mutations'
+import * as actions from './actions'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const store = new Vuex.Store({
   namespaced: true,
@@ -19,6 +19,6 @@ const store = new Vuex.Store({
   modules: {
     funcionarios,
   },
-});
+})
 
-export default store;
+export default store

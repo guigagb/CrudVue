@@ -6,10 +6,8 @@
 
 <script>
 export default {
-    name: 'Home'
+  name: 'Home',
 }
 </script>
 
-<style lang="stylus">
-
-</style>
+<style lang="stylus"></style>

@@ -7,37 +7,25 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module' // Allows for the use of imports
+    sourceType: 'module', // Allows for the use of imports
   },
 
   env: {
-    browser: true
+    browser: true,
   },
 
   // Rules order is important, please avoid shuffling them
   extends: [
-    // Base ESLint recommended rules
-    // 'eslint:recommended',
-
-
-    // Uncomment any of the lines below to choose desired strictness,
-    // but leave only one uncommented!
-    // See https://eslint.vuejs.org/rules/#available-rules
-    'plugin:vue/essential', // Priority A: Essential (Error Prevention)
-    // 'plugin:vue/strongly-recommended', // Priority B: Strongly Recommended (Improving Readability)
-    // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
-
-    // https://github.com/prettier/eslint-config-prettier#installation
-    // usage with Prettier, provided by 'eslint-config-prettier'.
-    'prettier',
-    
-    'prettier/vue'
+    'plugin:vue/recommended',
+    'eslint:recommended',
+    // "prettier/vue",
+    'plugin:prettier/recommended',
   ],
 
   plugins: [
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
-    'vue',
+    'prettier',
 
     // https://github.com/typescript-eslint/typescript-eslint/issues/389#issuecomment-509292674
     // Prettier has not been included as plugin to avoid performance impact
@@ -50,15 +38,24 @@ module.exports = {
     __statics: true,
     process: true,
     Capacitor: true,
-    chrome: true
+    chrome: true,
   },
 
   // add your custom rules here
   rules: {
     'prefer-promise-reject-errors': 'off',
 
-
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/max-attributes-per-line': ['warn', {
+      'singleline': 20,
+      'multiline': {
+        'max': 20,
+        'allowFirstLine': true
+      }
+    }],
+    'vue/html-self-closing': ["error",{
+      html: {normal: "never", void: "always"}
+    }]
+  },
 }

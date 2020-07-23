@@ -1,3 +1,3 @@
-export const setVariable = (state, value) =>{
-    state.variable = value;
+export const setVariable = (state, value) => {
+  state.variable = value
 }

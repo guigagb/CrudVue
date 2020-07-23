@@ -1,27 +1,27 @@
 <template>
-    <q-page class="Home">
-        <div class="row">
-            <div class="col-6">
-                <div class="page-header-left q-ma-sm q-mb-md q-mt-md">
-                    <label class="page-name">{{$route.name}}</label>
-                </div>
-            </div>
+  <q-page class="Home">
+    <div class="row">
+      <div class="col-6">
+        <div class="page-header-left q-ma-sm q-mb-md q-mt-md">
+          <label class="page-name">{{ $route.name }}</label>
         </div>
-        <q-card class="q-ml-sm q-mr-sm">
-            <q-card-section class="card-main q-pa-none">
-                <router-view></router-view>
-            </q-card-section>
-        </q-card>
-        <!-- <img
+      </div>
+    </div>
+    <q-card class="q-ml-sm q-mr-sm">
+      <q-card-section class="card-main q-pa-none">
+        <router-view />
+      </q-card-section>
+    </q-card>
+    <!-- <img
                   alt="Quasar logo"
                   src="~assets/quasar-logo-full.svg"
                 > -->
-    </q-page>
+  </q-page>
 </template>
 
 <script>
 export default {
-    name: 'Home'
+  name: 'Home',
 }
 </script>
 

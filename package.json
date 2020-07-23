@@ -12,7 +12,11 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
+    "eslint-plugin-prettier": "^3.1.4",
+    "js-beautify": "^1.11.0",
     "luxon": "^1.24.1",
+    "prettier": "^2.0.5",
+    "pug-beautify": "^0.1.1",
     "quasar": "^1.0.0",
     "vuex": "^3.5.1"
   },

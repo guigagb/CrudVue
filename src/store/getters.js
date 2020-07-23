@@ -1,7 +1,7 @@
-export const getMsgAlert = (state)=>{
-    return this.state.msgAlert;
+export const getMsgAlert = (state) => {
+  return state.msgAlert
 }
 
-export const getShowAlert = (state)=>{
-    return this.state.showAlert;
+export const getShowAlert = (state) => {
+  return state.showAlert
 }

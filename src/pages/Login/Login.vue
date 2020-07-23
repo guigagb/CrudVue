@@ -1,98 +1,107 @@
 <template>
-    <div id="pageLogin">
-        <div class="login">
-            <div class="login_header">
-                <span style="line-height: 55px; padding-left: 10px; font-size: 20px;">CRUD Vue</span>
-            </div>
-            <q-form id="formLogin" ref="formLogin" class="login_content">
-                <div class="form-group">
-                    <div>
-                        <span>Usuário</span>
-                    </div>
-                    <div>
-                        <q-input ref="edtUsuario" clearable required v-model="usuario" :rules="requiredRules" light></q-input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div>
-                        <span>Senha</span>
-                    </div>
-                    <div>
-                        <q-input maxlength="20" v-model="password" :type="showPass ? 'text' : 'password'" :append-icon="showPass ? 'fa fa-eye' : 'fa fa-eye-slash'" @click:append="showPass = !showPass" :rules="requiredRules" light></q-input>
-                    </div>
-                </div>
-                <div class="btnLogin">
-                    <q-btn ref="btnLogin" :disabled="btnLoginDisable" :loading="btnLoginDisable" @click="login" class="primary">Login</q-btn>
-                </div>
-                <div class="form-group rodape">
-                    <a href=""><span>Cadastrar-se</span></a>
-                </div>
-            </q-form>
+  <div id="pageLogin">
+    <div class="login">
+      <div class="login_header">
+        <span class="title-span">CRUD Vue</span>
+      </div>
+      <q-form id="formLogin" ref="formLogin" class="login_content">
+        <div class="form-group">
+          <div>
+            <span>Usuário</span>
+          </div>
+          <div>
+            <q-input ref="edtUsuario" v-model="usuario" clearable required :rules="requiredRules" light />
+          </div>
         </div>
+        <div class="form-group">
+          <div>
+            <span>Senha</span>
+          </div>
+          <div>
+            <q-input
+              v-model="password"
+              maxlength="20"
+              :type="showPass ? 'text' : 'password'"
+              :append-icon="showPass ? 'fa fa-eye' : 'fa fa-eye-slash'"
+              :rules="requiredRules"
+              light
+              @click:append="showPass = !showPass"
+            />
+          </div>
+        </div>
+        <div class="btnLogin">
+          <q-btn ref="btnLogin" :disabled="btnLoginDisable" :loading="btnLoginDisable" class="primary" @click="login">
+            Login
+          </q-btn>
+        </div>
+        <div class="form-group rodape">
+          <a href=""><span>Cadastrar-se</span></a>
+        </div>
+      </q-form>
     </div>
+  </div>
 </template>
 
 <script>
 // import inputNumber from "../../components/inputNumber";
-import * as util from "../../js/util";
-import store from "../../store";
+import * as util from '../../js/util'
+import store from '../../store'
 
 export default {
-    name: "login",
-    components: {},
-    data() {
-        return {
-            requiredRules: [v => !!v || "O campo deve ser preenchido!"],
-            password: undefined,
-            showPass: false,
-            btnLoginDisable: false,
-            usuario: ""
-        };
-    },
-    methods: {
-        login() {
-            this.$refs.formLogin
-                .validate()
-                .then(success => {
-                    if (success) {
-                        this.btnLoginDisable = true;
-                        this.$refs.btnLogin.innerHTML =
-                            '<i class="fa fa-spinner fa-spin"></i>';
-                        return this.$store.dispatch("actLogar", {
-                            usuario: this.usuario,
-                            senha: this.password
-                        });
-                    } else {
-                        return Promise.reject("Campos devem ser preenchidos!");
-                    }
-                })
-                .then(r => {
-                    setTimeout(() => {
-                        this.$router.push({
-                            path: "/"
-                        });
-                    }, 200);
-                })
-                .catch(r => {
-                    this.$store.state.alert(r, "negative");
-                })
-                .finally(() => {
-                    this.btnLoginDisable = false;
-                });
-        }
-    },
-    computed: {
-        //   ...mapState(['usuarioLogado'])
-    },
-    beforeRouteEnter(to, from, next) {
-        if (!store.state.usuarioLogado) next();
-        else next("/");
-    },
-    mounted() {
-        util.tabToEnter("#formLogin");
-        window.store = this.$store;
+  name: 'Login',
+  components: {},
+  data() {
+    return {
+      requiredRules: [(v) => !!v || 'O campo deve ser preenchido!'],
+      password: undefined,
+      showPass: false,
+      btnLoginDisable: false,
+      usuario: '',
     }
-};
+  },
+  computed: {
+    //   ...mapState(['usuarioLogado'])
+  },
+  mounted() {
+    util.tabToEnter('#formLogin')
+    window.store = this.$store
+  },
+  methods: {
+    login() {
+      this.$refs.formLogin
+        .validate()
+        .then((success) => {
+          if (success) {
+            this.btnLoginDisable = true
+            this.$refs.btnLogin.innerHTML = '<i class="fa fa-spinner fa-spin"></i>'
+            return this.$store.dispatch('actLogar', {
+              usuario: this.usuario,
+              senha: this.password,
+            })
+          } else {
+            return Promise.reject('Campos devem ser preenchidos!')
+          }
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.$router.push({
+              path: '/',
+            })
+          }, 200)
+        })
+        .catch((r) => {
+          this.$store.state.alert(r, 'negative')
+        })
+        .finally(() => {
+          this.btnLoginDisable = false
+        })
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    if (!store.state.usuarioLogado) next()
+    else next('/')
+  },
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -201,6 +210,12 @@ input:focus {
     font-weight: 700;
     font-size: 16px;
     background: #2f80ed;
+}
+
+.title-span{
+    line-height: 55px;
+    padding-left: 10px;
+    font-size: 20px;
 }
 
 .rodape {

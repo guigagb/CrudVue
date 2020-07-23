@@ -1,3 +1,3 @@
-export default{
-    variable: 'value'
+export default {
+  variable: 'value',
 }
