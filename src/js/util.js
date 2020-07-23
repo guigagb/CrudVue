@@ -50,9 +50,9 @@ export function tabToEnter(element) {
   var focusable = [
     ...el.querySelectorAll(
       'input:not([disabled]):not([readonly]),' +
-        'select:not([disabled]):not([readonly]),' +
-        "button:not([disabled]):not([readonly]):not(.q-icon):not([z-index='-1'])," +
-        'textarea:not([disabled]):not([readonly])'
+      'select:not([disabled]):not([readonly]),' +
+      "button:not([disabled]):not([readonly]):not(.q-icon):not([z-index='-1'])," +
+      'textarea:not([disabled]):not([readonly])'
     ),
   ]
 

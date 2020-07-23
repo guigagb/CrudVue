@@ -1,6 +1,6 @@
 <template>
   <div class="form-funcionario">
-    <q-form>
+    <q-form id="formFuncionarios" ref="formFuncionarios">
       <div class="row q-mb-lg">
         <div class="col-2 q-pr-lg container-foto">
           <fieldset>
@@ -17,7 +17,7 @@
                 v-model="funcionario.NOME"
                 stack-label
                 label="Nome"
-                :rules="[(val) => !!val || 'Field is required']"
+                :rules="[required]"
               />
             </div>
           </div>
@@ -33,7 +33,7 @@
               />
             </div>
             <div class="col-2 q-pr-lg">
-              <q-input v-model="funcionario.DATA_ADMISSAO" stack-label label="Admissão" mask="date">
+              <q-input v-model="funcionario.DATA_ADMISSAO" stack-label label="Admissão" mask="date" :rules="[required]">
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -48,7 +48,7 @@
               </q-input>
             </div>
             <div class="col-4">
-              <q-select v-model="funcionario.ID_CARGO" :options="getCargosToSelect" stack-label label="Cargo" />
+              <q-select class="select" v-model="funcionario.ID_CARGO" :options="getCargosToSelect" stack-label label="Cargo" :rules="[required]" />
             </div>
           </div>
         </div>
@@ -69,6 +69,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { mdiCheckCircle, mdiCancel } from '@quasar/extras/mdi-v5'
+import { required } from '../../js/rules'
+import { tabToEnter } from '../../js/util'
 
 export default {
   data() {
@@ -81,11 +83,15 @@ export default {
       },
       mdiCheckCircle,
       mdiCancel,
+      required,
     }
   },
   computed: {
     ...mapGetters('funcionarios', ['getCargosToSelect']),
   },
+  mounted(){
+    tabToEnter('#formFuncionarios')
+  }
 }
 </script>
 

@@ -64,7 +64,6 @@ export default {
   },
   mounted() {
     util.tabToEnter('#formLogin')
-    window.store = this.$store
   },
   methods: {
     login() {
