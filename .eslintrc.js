@@ -56,6 +56,7 @@ module.exports = {
     }],
     'vue/html-self-closing': ["error",{
       html: {normal: "never", void: "always"}
-    }]
+    }],
+    'vue/attribute-hyphenation': 'off'
   },
 }

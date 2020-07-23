@@ -1,9 +1,22 @@
 <template>
-  <div></div>
+  <div class="FuncionariosIncluir q-pa-md">
+    <Form />
+  </div>
 </template>
 
 <script>
-export default {}
+import Form from './FuncionariosForm'
+
+export default {
+  components: { Form },
+}
 </script>
 
-<style></style>
+<style>
+.FuncionariosIncluir {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>

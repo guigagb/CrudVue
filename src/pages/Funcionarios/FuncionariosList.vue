@@ -1,12 +1,21 @@
 <template>
-  <div class="FuncionarioList"></div>
+  <div class="FuncionarioList">
+    <grid
+      :rowKey="'ID_FUNCIONARIO'"
+      :data="getFuncionarios"
+      :columns="columns"
+      :rotaIncluir="'/funcionarios/incluir'"
+    />
+  </div>
 </template>
 
 <script>
 import { mdiPlusCircle } from '@quasar/extras/mdi-v5'
 import { mapGetters } from 'vuex'
+import Grid from '../../layouts/Grid'
 
 export default {
+  components: { Grid },
   data() {
     return {
       loading: false,

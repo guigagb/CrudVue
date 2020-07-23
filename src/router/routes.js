@@ -18,7 +18,8 @@ const routes = [
             component: () => import('pages/Funcionarios/FuncionariosList.vue'),
           },
           {
-            path: '/incluir',
+            path: 'incluir',
+            name: 'Funcionários | Incluir',
             component: () => import('pages/Funcionarios/FuncionariosIncluir.vue'),
           },
           {

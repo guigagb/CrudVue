@@ -1,11 +1,11 @@
 <template>
   <q-table
     class="grid"
-    :data="getFuncionarios"
+    :data="data"
     selection="none"
     :columns="columns"
     color="primary"
-    row-key="name"
+    :row-key="rowKey"
     :loading="loading"
     :pagination="{ rowsPerPage: 0 }"
   >
@@ -17,15 +17,26 @@
     </template>
 
     <template v-slot:bottom>
-      <q-tab-panel />
       <q-space />
-      <q-btn color="primary" label="NOVO FUNCIONÁRIO" no-caps @click="exportTable" />
+      <q-btn color="primary" label="INCLUIR" no-caps @click="incluir" />
     </template>
   </q-table>
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['data', 'columns', 'rotaIncluir', 'rowKey'],
+  data() {
+    return {
+      loading: false,
+    }
+  },
+  methods: {
+    incluir() {
+      this.$router.push(this.rotaIncluir)
+    },
+  },
+}
 </script>
 
 <style></style>
