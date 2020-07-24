@@ -20,11 +20,12 @@ const routes = [
           {
             path: 'incluir',
             name: 'Funcionários | Incluir',
-            component: () => import('pages/Funcionarios/FuncionariosIncluir.vue'),
+            component: () => import('pages/Funcionarios/FuncionariosForm.vue'),
           },
           {
-            path: ':id/alterar',
-            component: () => import('pages/Funcionarios/FuncionariosAlterar.vue'),
+            path: ':id',
+            name: 'Funcionários | Alterar',
+            component: () => import('pages/Funcionarios/FuncionariosForm.vue'),
           },
         ],
       },

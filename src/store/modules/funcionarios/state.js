@@ -1,5 +1,4 @@
 export default {
-  variable: 'value',
   funcionarios: [
     {
       ID_FUNCIONARIO: 1,

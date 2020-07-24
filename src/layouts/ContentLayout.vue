@@ -1,7 +1,7 @@
 <template>
   <q-page class="Home">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <div class="page-header-left q-ma-sm q-mb-md q-mt-md">
           <label class="page-name">{{ $route.name }}</label>
         </div>
