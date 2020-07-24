@@ -26,7 +26,7 @@
               />
             </div>
             <div class="col col-md-10 col-sm-9 col-xs-8 q-pr-lg">
-              <q-input v-model="funcionario.NOME" stack-label label="Nome" :rules="[required]" />
+              <q-input v-model="funcionario.NOME" v-uppercase stack-label label="Nome" :rules="[required]" />
             </div>
           </div>
           <div class="row">
@@ -41,21 +41,14 @@
               />
             </div>
             <div class="col col-md-3 col-sm-4 col-xs-6 q-pr-lg">
-              <q-input v-model="funcionario.DATA_ADMISSAO" stack-label label="Admissão" mask="date" :rules="[required]">
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                      <q-date
-                        v-model="funcionario.DATA_ADMISSAO"
-                        mask="##/##/####"
-                        first-day-of-week="1"
-                        @input="() => $refs.qDateProxy.hide()"
-                        @keydown.enter="$refs.edtCargo.focus()"
-                      />
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
+              <q-input
+                v-model="funcionario.DATA_ADMISSAO"
+                mask="##/##/####"
+                stack-label
+                label="Admissão"
+                :rules="[required]"
+              />
+              <q-money />
             </div>
             <div class="col col-md-3 col-sm-4 col-xs-12">
               <q-select
@@ -80,13 +73,16 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { required } from '../../js/rules'
 import { tabToEnter } from '../../js/util'
+import QMoney from '../../components/QMoney'
 
 export default {
+  components: { QMoney },
   data() {
     return {
       disableIdFuncionario: false,
       acao: undefined,
       required,
+      price: 0,
       funcionario: {
         ID_FUNCIONARIO: undefined,
         NOME: undefined,
@@ -112,6 +108,10 @@ export default {
           this.$refs.edtIdFuncionario.focus()
         }
       })
+    },
+    changeCargo(val, done) {
+      console.log(val)
+      done(val)
     },
   },
   mounted() {

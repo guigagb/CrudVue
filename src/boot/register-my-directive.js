@@ -1,6 +1,7 @@
 // file: /src/boot/my-directive.js
 import Vue from 'vue'
 import databr from '../directive/dataBR.js'
+import uppercase from '../directive/uppercase.js'
 
 // We globally register our directive with Vue;
 // Remember that all directives in Vue will start with 'v-'
@@ -8,3 +9,4 @@ import databr from '../directive/dataBR.js'
 // https://vuejs.org/v2/guide/custom-directive.html
 // 'my-directive' will be used as 'v-my-directive'
 Vue.directive('databr', databr)
+Vue.directive('uppercase', uppercase)
