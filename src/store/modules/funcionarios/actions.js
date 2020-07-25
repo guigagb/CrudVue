@@ -28,3 +28,31 @@ export const actInsertFuncionario = ({ commit }, dados) => {
     res(true)
   })
 }
+
+export const actUpdateFuncionario = ({ commit }, dados) => {
+  return new Promise((res) => {
+    // altera funcionario no backend ...
+
+    commit('updateFuncionario', dados)
+    res(true)
+  })
+}
+
+export const actDeleteFuncionario = ({ commit }, idFuncionario) => {
+  return new Promise((res) => {
+    // deleta funcionario no backend ...
+    console.log(idFuncionario)
+    commit('deleteFuncionario', idFuncionario)
+    res(true)
+  })
+}
+
+export const actGetFuncionario = ({ getters }, idFuncionario) => {
+  return new Promise((res) => {
+    //busca do backend
+
+    let func = getters.getFuncionarioByID(idFuncionario)
+    console.log(func)
+    res(func)
+  })
+}

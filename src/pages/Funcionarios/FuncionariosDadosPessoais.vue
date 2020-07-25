@@ -26,7 +26,7 @@
               />
             </div>
             <div class="col col-md-10 col-sm-9 col-xs-8 q-pr-lg">
-              <q-input v-model="funcionario.NOME" v-uppercase stack-label label="Nome" :rules="[required]" />
+              <q-input v-model="funcionario.NOME" stack-label label="Nome" :rules="[required]" />
             </div>
           </div>
           <div class="row">
@@ -48,7 +48,6 @@
                 label="Admissão"
                 :rules="[required]"
               />
-              <q-money />
             </div>
             <div class="col col-md-3 col-sm-4 col-xs-12">
               <q-select
@@ -73,10 +72,9 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { required } from '../../js/rules'
 import { tabToEnter } from '../../js/util'
-import QMoney from '../../components/QMoney'
 
 export default {
-  components: { QMoney },
+  components: {},
   data() {
     return {
       disableIdFuncionario: false,
@@ -97,7 +95,7 @@ export default {
     ...mapGetters('funcionarios', ['getCargosToSelect']),
   },
   methods: {
-    ...mapActions('funcionarios', ['actFuncionarioDuplicity']),
+    ...mapActions('funcionarios', ['actFuncionarioDuplicity', 'actGetFuncionario']),
     ...mapMutations('funcionarios', ['setFuncionario']),
     duplicity() {
       if (this.acao != 'incluir') return false
@@ -117,7 +115,14 @@ export default {
   mounted() {
     tabToEnter('#formDadosPessoais')
     this.acao = this.$route.path == '/funcionarios/incluir' ? 'incluir' : 'alterar'
-    this.disableIdFuncionario = this.acao == 'incluir' ? false : true
+    if (this.acao == 'incluir') {
+      this.disableIdFuncionario = false
+      this.$refs.formDadosPessoais.focus()
+    } else if (this.acao == 'alterar') {
+      this.disableIdFuncionario = true
+      this.actGetFuncionario(this.$route.params.id).then((r) => (this.funcionario = r))
+      this.$refs.formDadosPessoais.$children[1].focus()
+    }
   },
 }
 </script>

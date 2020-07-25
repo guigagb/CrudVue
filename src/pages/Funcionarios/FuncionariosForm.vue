@@ -18,7 +18,7 @@
     </div>
     <q-card-actions>
       <q-space />
-      <q-btn :icon="mdiCancel" size="md" tabindex="-1" color="negative" class="q-pl-sm q-pr-sm">
+      <q-btn :icon="mdiCancel" size="md" tabindex="-1" color="negative" class="q-pl-sm q-pr-sm" @click="cancelar">
         <span class="q-pl-sm">CANCELAR</span>
       </q-btn>
       <q-btn :icon="mdiCheckCircle" size="md" color="positive" class="q-pl-sm q-pr-sm" @click="salvar">
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('funcionarios', ['actInsertFuncionario']),
+    ...mapActions('funcionarios', ['actInsertFuncionario', 'actUpdateFuncionario']),
     salvar() {
       let FuncionariosDadosPessoais = this.$refs.FuncionariosDadosPessoais
       FuncionariosDadosPessoais.$refs.formDadosPessoais.validate().then((validou) => {
@@ -58,9 +58,19 @@ export default {
             .catch((r) => {
               this.$store.state.alert('Ocorreu um erro ao incluir funcionário: ' + r, 'negative')
             })
-        else if (FuncionariosDadosPessoais.acao == 'incluir')
+        else if (FuncionariosDadosPessoais.acao == 'alterar')
           this.actUpdateFuncionario(FuncionariosDadosPessoais.funcionario)
+            .then((r) => {
+              if (!r) return PromiseRejectionEvent
+              this.$router.push('/funcionarios')
+            })
+            .catch((r) => {
+              this.$store.state.alert('Ocorreu um erro ao alterar funcionário: ' + r, 'negative')
+            })
       })
+    },
+    cancelar() {
+      this.$router.replace('/funcionarios')
     },
   },
 }

@@ -10,6 +10,7 @@ const routes = [
       },
       {
         path: 'funcionarios',
+        props: true,
         component: () => import('pages/Funcionarios/Funcionarios.vue'),
         children: [
           {
@@ -25,6 +26,7 @@ const routes = [
           {
             path: ':id',
             name: 'Funcionários | Alterar',
+            props: true,
             component: () => import('pages/Funcionarios/FuncionariosForm.vue'),
           },
         ],

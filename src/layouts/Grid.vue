@@ -11,8 +11,8 @@
   >
     <template v-slot:body-cell-actions="props">
       <q-td :props="props">
-        <q-btn dense round flat color="grey" icon="edit" @click="editRow(props)" />
-        <q-btn dense round flat color="grey" icon="delete" @click="deleteRow(props)" />
+        <q-btn dense round flat color="grey" icon="edit" @click="editRow(props.row[rowKey])" />
+        <q-btn dense round flat color="grey" icon="delete" @click="deleteRow(props.row[rowKey])" />
       </q-td>
     </template>
 
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: ['data', 'columns', 'rotaIncluir', 'rowKey'],
+  props: ['data', 'columns', 'rotaIncluir', 'rotaAlterar', 'rowKey'],
   data() {
     return {
       loading: false,
@@ -33,7 +33,13 @@ export default {
   },
   methods: {
     incluir() {
-      this.$router.push(this.rotaIncluir)
+      this.$emit('insert')
+    },
+    editRow(value) {
+      this.$emit('update', value)
+    },
+    deleteRow(value) {
+      this.$emit('delete', value)
     },
   },
 }

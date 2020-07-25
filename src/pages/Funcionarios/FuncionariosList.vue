@@ -4,22 +4,27 @@
       :rowKey="'ID_FUNCIONARIO'"
       :data="getFuncionarios"
       :columns="columns"
-      :rotaIncluir="'/funcionarios/incluir'"
+      @insert="incluir"
+      @update="alterar"
+      @delete="alertDeletar"
     />
+    <Confirma ref="confirma" color="negative" :msg="'Deseja realmente excluir esse funcionário?'" @sim="deletar" />
   </div>
 </template>
 
 <script>
 import { mdiPlusCircle } from '@quasar/extras/mdi-v5'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Grid from '../../layouts/Grid'
+import Confirma from '../../components/Confirma'
 
 export default {
-  components: { Grid },
+  components: { Grid, Confirma },
   data() {
     return {
       loading: false,
       mdiPlusCircle,
+      idSelecionado: undefined,
       columns: [
         {
           name: 'NOME',
@@ -55,6 +60,22 @@ export default {
   },
   computed: {
     ...mapGetters('funcionarios', ['getFuncionarios']),
+  },
+  methods: {
+    ...mapActions('funcionarios', ['actDeleteFuncionario']),
+    incluir() {
+      this.$router.push('/funcionarios/incluir')
+    },
+    alterar(val) {
+      this.$router.push('/funcionarios/' + val)
+    },
+    alertDeletar(idSelecionado) {
+      this.idSelecionado = idSelecionado
+      this.$refs.confirma.show()
+    },
+    deletar() {
+      this.actDeleteFuncionario(this.idSelecionado)
+    },
   },
 }
 </script>
